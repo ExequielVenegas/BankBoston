@@ -4,5 +4,6 @@ public class Cliente {
     String nombre;
     String apellidoPaterno;
     String apellidoMaterno;
+    String rut;
 
 }
