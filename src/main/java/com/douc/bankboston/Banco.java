@@ -74,15 +74,17 @@ public class Banco {
             return false;
     }
 
-    public static Cliente buscarCliente(Cliente cliente, String rutTarget){
+  /*  public static Cliente buscarCliente(Cliente cliente, String rutTarget){
         if(validarRutCliente(rutTarget)){
             cliente.verDatosCliente();
             return cliente;
         }else{
             System.out.println("Cliente no existe");
-            return ";
+            return
         }
     }
 
+
+   */
 
     }
