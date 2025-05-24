@@ -1,7 +1,10 @@
 package com.douc.bankboston;
+import com.douc.bankboston.modelos.Banco;
+import com.douc.bankboston.modelos.Cliente;
+
 import java.util.Scanner;
 
-import static com.douc.bankboston.Banco.*;
+import static com.douc.bankboston.modelos.Banco.*;
 
 public class Main {
 
