@@ -7,10 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner (System.in);
+        Banco bostonBank = new Banco();
 
         int opcMenu=0; //opcion de menu
 
-        do {
+        while(opcMenu!=6) {
             System.out.println("\n=========== BIENVENIDO/A AL SISTEMA DE GESTIÓN DE CUENTAS DE BANK BOSTON ============= \n");
             System.out.println("|______________________________ MENÚ PRINCIPAL _________________________|");
             System.out.println("|1. Registrar cliente                                                   |");
@@ -21,41 +22,54 @@ public class Main {
             System.out.println("|6. Salir.                                                              |");
             System.out.println("|-----------------------------------------------------------------------|");
             System.out.println("Por favor ingrese el número de la acción que desea realizar: ");
-            opcMenu=scan.nextInt();
+            opcMenu = scan.nextInt();
             scan.nextLine();
 
-            if(opcMenu<1 || opcMenu>6){
+            if (opcMenu < 1 || opcMenu > 6) {
                 System.out.println("\n Opción inválida intente nuevamente");
             }
-        }while(opcMenu<1 || opcMenu>6);
 
-        switch (opcMenu){
-            case 1: // registrar cliente_____________________________________________________________________________
-                // aqui aun no tengo claro como implementarlo
-                Cliente cliente1 = new Cliente("Francis", "Álvarez", "Figueroa", "12.222.333-1","AV. Siempreviva 123", "Santiago Centro","123123222");
-
-            case 2: // ver datos cliente_____________________________________________________________________________
-
-                // revisar que haya registros de clientes
-                if(getClientes().isEmpty()){
-                    System.out.println("No ha registrado ningún cliente. Registre cliente en opción 1 del menú principal");
+            switch (opcMenu) {
+                case 1: // registrar cliente_____________________________________________________________________________
+                    registrarCliente();
                     break;
-                }else{
-                    // pedir datos para buscar información de cliente
-                    String rutTarget = "";
-                    do {
-                        System.out.println("Ingrese rut del cliente a buscar (incluya puntos y guión): ");
-                        rutTarget = scan.nextLine();
 
 
-                    }while(rutTarget.length()>10 || rutTarget.length()>12 || rutTarget.isBlank());
-                }
-            case 3: // depositar
-            case 4: //girar
-            case 5: // consultar saldo
-            case 6: // salir
-                System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON");
-                break;
+                case 2: // ver datos cliente_____________________________________________________________________________
+
+                    // revisar que haya registros de clientes
+                    if (getClientes().isEmpty()) {
+                        System.out.println("No ha registrado ningún cliente. Registre cliente en opción 1 del menú principal");
+                    } else {
+                        // pedir datos para buscar información de cliente
+                        String rutTarget = "";
+
+                        Cliente clienteEncontrado = null;
+                        // aqui hay algo mal, revisar
+                        do {
+                            System.out.print("Ingrese RUT del cliente a buscar (incluya puntos y guión): ");
+                            rutTarget = scan.nextLine().trim();
+
+                            if (rutTarget.length() > 10 && rutTarget.length() <= 12 && !rutTarget.isBlank()) {
+                                clienteEncontrado = buscarClientePorRut(rutTarget);
+                                clienteEncontrado.verDatosCliente();
+
+                            } else {
+                                System.out.println("Formato inválido. Intente nuevamente.");
+                            }
+
+                        } while (clienteEncontrado == null);
+                    }
+                    break;
+
+
+                case 3: // depositar
+                case 4: //girar
+                case 5: // consultar saldo
+                case 6: // salir
+                    System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON");
+                    break;
+            }
         }
 
 

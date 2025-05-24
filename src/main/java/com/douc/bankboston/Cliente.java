@@ -1,5 +1,8 @@
 package com.douc.bankboston;
 
+import java.util.Scanner;
+import static com.douc.bankboston.Banco.getClientes;
+
 public class Cliente {
 
     //atributos
@@ -10,10 +13,11 @@ public class Cliente {
     private String domicilio;
     private String comuna;
     private String numeroTelefono;
-    private int numeroCuenta;
+    private int numeroCuenta= 123456789; // primera cuenta correlativa
+    private Cuenta cuenta;
 
     // constructor
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String rut, String domicilio, String comuna, String numeroTelefono) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String rut, String domicilio, String comuna, String numeroTelefono, int numeroCuenta, int saldo) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -21,6 +25,7 @@ public class Cliente {
         this.domicilio = domicilio;
         this.comuna = comuna;
         this.numeroTelefono = numeroTelefono;
+        this.cuenta = new Cuenta(numeroCuenta,saldo); // crear cuenta
     }
 
     // setters
@@ -94,11 +99,6 @@ public class Cliente {
     }
 
     // métodos custom
-
-    public void registrarCliente (Cliente cliente){
-// aqui no se me ocurre cómo implementar esto
-
-    }
 
     public void verDatosCliente (){
         System.out.println("---------------- DATOS DE CLIENTE-------------------");
