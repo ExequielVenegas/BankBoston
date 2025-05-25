@@ -8,8 +8,8 @@ public class Banco {
 
     private String nombreBanco;
     private HashMap<String, Cliente> clientes;
-    private HashMap<Integer, Cuenta> cuentas;
-    private HashMap<Integer, String> relacionCuentaCliente;
+    private HashMap<Long, Cuenta> cuentas;
+    private HashMap<Long, String> relacionCuentaCliente;
 
     // constructor
     public Banco() {
@@ -43,19 +43,19 @@ public class Banco {
         this.clientes = clientes;
     }
 
-    public HashMap<Integer, Cuenta> getCuentas() {
+    public HashMap<Long, Cuenta> getCuentas() {
         return cuentas;
     }
 
-    private void setCuentas(HashMap<Integer, Cuenta> cuentas) {
+    private void setCuentas(HashMap<Long, Cuenta> cuentas) {
         this.cuentas = cuentas;
     }
 
-    public HashMap<Integer, String> getRelacionCuentaCliente() {
+    public HashMap<Long, String> getRelacionCuentaCliente() {
         return relacionCuentaCliente;
     }
 
-    private void setRelacionCuentaCliente(HashMap<Integer, String> relacionCuentaCliente) {
+    private void setRelacionCuentaCliente(HashMap<Long, String> relacionCuentaCliente) {
         this.relacionCuentaCliente = relacionCuentaCliente;
     }
 
@@ -101,7 +101,7 @@ public class Banco {
         }
     }
 
-    public void depositarMontoCuenta(Integer numeroCuenta, long monto) {
+    public void depositarMontoCuenta(Long numeroCuenta, long monto) {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {
                 cuentas.get(numeroCuenta).depositarMonto(monto);
@@ -115,7 +115,7 @@ public class Banco {
         }
     }
 
-    public void girarMontoCuenta(Integer numeroCuenta, long monto) {
+    public void girarMontoCuenta(Long numeroCuenta, long monto) {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {
                 long saldoCalculado = cuentas.get(numeroCuenta).getSaldo() - monto;
@@ -134,7 +134,7 @@ public class Banco {
         }
     }
 
-    public void mostrarSaldo(Integer numeroCuenta) {
+    public void mostrarSaldo(Long numeroCuenta) {
         if (verificarCuentaExiste(numeroCuenta)) {
             System.out.println("Saldo actual: " + cuentas.get(numeroCuenta).getSaldo());
         } else {

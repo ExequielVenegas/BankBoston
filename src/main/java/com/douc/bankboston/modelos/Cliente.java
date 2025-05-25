@@ -12,14 +12,14 @@ public class Cliente {
     private String domicilio;
     private String comuna;
     private String numeroTelefono;
-    private int numeroCuenta;
+    private Long numeroCuenta;
     private Cuenta cuenta;
 
 
     // constructor
     private Cliente(String nombre, String apellidoPaterno, String apellidoMaterno,
                     String rut, String domicilio, String comuna,
-                    String numeroTelefono, int numeroCuenta) {
+                    String numeroTelefono, Long numeroCuenta) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -61,7 +61,7 @@ public class Cliente {
         this.numeroTelefono = numeroTelefono;
     }
 
-    public void setNumeroCuenta(int numeroCuenta) {
+    public void setNumeroCuenta(Long numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
@@ -100,7 +100,7 @@ public class Cliente {
         return numeroTelefono;
     }
 
-    public int getNumeroCuenta() {
+    public Long getNumeroCuenta() {
         return numeroCuenta;
     }
 
@@ -111,19 +111,23 @@ public class Cliente {
     // métodos custom
 
     //metodo fabrica, es un metodo que devuelve un objeto de esta clase
-    public static Cliente crearCliente() {
-        System.out.println("---------------- REGISTRO DE CLIENTE-------------------");
-        String rutCliente = obtenerRutDeEntrada("Ingrese rut del cliente (con puntos y guión): ");
-        String nombreCliente = obtenerTextoDeEntrada("Ingrese nombre del cliente: ");
-        String apellidoPaternoCliente = obtenerTextoDeEntrada("Ingrese apellido paterno del cliente: ");
-        String apellidoMaternoCliente = obtenerTextoDeEntrada("Ingrese apellido materno del cliente: ");
-        String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
-        String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
-        String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de telefono del cliente: ");
-        Integer numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente: ");
-
-        return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
-                rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta);
+    public static Cliente crearCliente(boolean esPrueba) {
+        if (!esPrueba) {
+            System.out.println("---------------- REGISTRO DE CLIENTE-------------------");
+            String rutCliente = obtenerRutDeEntrada("Ingrese rut del cliente (con puntos y guión): ");
+            String nombreCliente = obtenerTextoDeEntrada("Ingrese nombre del cliente: ");
+            String apellidoPaternoCliente = obtenerTextoDeEntrada("Ingrese apellido paterno del cliente: ");
+            String apellidoMaternoCliente = obtenerTextoDeEntrada("Ingrese apellido materno del cliente: ");
+            String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
+            String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
+            String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de telefono del cliente: ");
+            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente: ");
+            return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
+                    rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta);
+        } else {
+            return new Cliente("Prueba", "Pruebita", "Test",
+                    "1.111.111-1", "Calle Prueba", "Pruebalandia", "987654321", 12345678L);
+        }
     }
 
     public void mostrarDatos() {
