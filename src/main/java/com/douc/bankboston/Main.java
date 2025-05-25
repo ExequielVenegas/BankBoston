@@ -16,7 +16,7 @@ public class Main {
         do {
             mostrarMenu();
             opcMenu = obtenerTextoDeScanner("Por favor ingrese el número de la acción que desea realizar: ");
-
+            clearConsole();
             if (!LISTA_OPCIONES.contains(opcMenu)) {
                 System.out.println("\n Opción inválida intente nuevamente");
             } else {
@@ -41,7 +41,7 @@ public class Main {
     private static void aplicarTransacciones(String opcMenu, Banco bankBoston) {
         switch (opcMenu) {
             case "1": // registrar cliente_____________________________________________________________________________
-                registrarCliente(bankBoston);
+                registrarCliente(bankBoston, false);
                 break;
             case "2":
                 verDatosCliente(bankBoston);
@@ -58,11 +58,14 @@ public class Main {
             case "6": // salir
                 System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON");
                 break;
+            case "T": // prueba
+                registrarCliente(bankBoston, true);
+                break;
         }
     }
 
-    private static void registrarCliente(Banco bankBoston) {
-        Cliente clienteNuevo = Cliente.crearCliente();
+    private static void registrarCliente(Banco bankBoston, boolean esPrueba) {
+        Cliente clienteNuevo = Cliente.crearCliente(esPrueba);
         bankBoston.agregarCliente(clienteNuevo);
     }
 
@@ -82,7 +85,7 @@ public class Main {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
             return;
         } else {
-            Integer cuentaTarget = 0;
+            Long cuentaTarget = 0L;
             do {
                 cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a consultar saldo: ");
                 bankBoston.mostrarSaldo(cuentaTarget);
@@ -95,7 +98,7 @@ public class Main {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
             return;
         } else {
-            Integer cuentaTarget = 0;
+            Long cuentaTarget = 0L;
             do {
                 cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a girar: ");
                 long monto = obtenerMontoEntrada("Ingrese monto a girar: ");
@@ -109,7 +112,7 @@ public class Main {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
             return;
         } else {
-            Integer cuentaTarget = 0;
+            Long cuentaTarget = 0L;
             do {
                 cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a depositar: ");
                 long monto = obtenerMontoEntrada("Ingrese monto a depositar: ");
@@ -117,6 +120,4 @@ public class Main {
             } while (cuentaTarget <= 0);
         }
     }
-
-
 }

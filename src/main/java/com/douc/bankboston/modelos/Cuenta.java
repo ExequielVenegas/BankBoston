@@ -6,7 +6,7 @@ public class Cuenta {
 
 
     // constructor
-    public Cuenta(int numeroCuenta) {
+    public Cuenta(Long numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 

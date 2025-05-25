@@ -13,14 +13,14 @@ public class GestorEntradaSalida {
         return lineaLeida;
     }
 
-    public static Integer obtenerNumeroCuentaEntrada(String mensaje) {
-        Integer numeroCuenta = null;
+    public static Long obtenerNumeroCuentaEntrada(String mensaje) {
+        Long numeroCuenta = null;
         boolean entradaValida = false;
 
         while (!entradaValida) {
             System.out.print(mensaje);
             try {
-                numeroCuenta = scanner.nextInt();
+                numeroCuenta = scanner.nextLong();
                 scanner.nextLine(); // Limpiar el buffer: consume el resto de la línea, incluyendo el '\n'
                 entradaValida = true; // Si llegamos aquí, la entrada es válida
             } catch (InputMismatchException e) {
@@ -92,5 +92,18 @@ public class GestorEntradaSalida {
             return true;
         }
         return false;
+    }
+
+    public static void clearConsole(Integer cantidadLineas) {
+        for (int i = 0; i <= cantidadLineas; i++) {
+            System.out.println();
+        }
+    }
+
+    public static void clearConsole() {
+        Integer cantidadLineas = 15;
+        for (int i = 0; i <= cantidadLineas; i++) {
+            System.out.println();
+        }
     }
 }
