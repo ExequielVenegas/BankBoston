@@ -70,7 +70,7 @@ public class GestorEntradaSalida {
             if (!validarFormatoRut(rut)) {
                 System.out.println("Formato incorrecto. Ejemplo válido: 1.123.456-7");
             }
-        } while (validarFormatoRut(rut));
+        } while (!validarFormatoRut(rut));
         return rut;
     }
 

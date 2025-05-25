@@ -24,8 +24,6 @@ public class Main {
             }
         } while (!OPCION_SALIR.equalsIgnoreCase(opcMenu));
 
-
-
     }
 
     private static void mostrarMenu() {
@@ -40,71 +38,83 @@ public class Main {
         System.out.println("|-----------------------------------------------------------------------|");
     }
 
-    // TODO: EXTRAER LOGICA DE TRANSACCIONES EN METODOS PARA QUE EL CODIGO QUE MAS LIMPIO
     private static void aplicarTransacciones(String opcMenu, Banco bankBoston) {
         switch (opcMenu) {
             case "1": // registrar cliente_____________________________________________________________________________
-                Cliente clienteNuevo = Cliente.crearCliente();
-                bankBoston.agregarCliente(clienteNuevo);
+                registrarCliente(bankBoston);
                 break;
             case "2":
-                if (bankBoston.getClientes().isEmpty()) {
-                    System.out.println("No se ha registrado ningún cliente. Registre cliente en opción 1 del menú principal");
-                    break;
-                } else {
-                    // pedir datos para buscar información de cliente
-                    String rutTarget = "";
-                    do {
-                        rutTarget = obtenerTextoDeScanner("Ingrese rut del cliente a buscar (incluya puntos y guión): ").toUpperCase();
-                        bankBoston.mostrarDatosCliente(rutTarget);
-
-                        // TODO: REVISAR LOGICA, MAYOR A 12 ESTÁ SOBRANDO, YA QUE SI ES MAYOR 10 CUMPLE CONDICION
-                    } while (rutTarget.length() > 10 || rutTarget.length() > 12 || rutTarget.isBlank());
-                }
+                verDatosCliente(bankBoston);
                 break;
-
-            // TODO: TERMINAR DE IMPLEMENTAR Y CORREGIR METODOS SIGUIENTES
             case "3": // depositar
-                if (bankBoston.getCuentas().isEmpty()) {
-                    System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
-                    break;
-                } else {
-                    Integer cuentaTarget = 0;
-                    do {
-                        cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a depositar: ");
-                        long monto = obtenerMontoEntrada("Ingrese monto a depositar: ");
-                        bankBoston.depositarMontoCuenta(cuentaTarget, monto);
-                    } while (cuentaTarget <= 0 );
-                }
+                depositar(bankBoston);
                 break;
             case "4": //girar
-                if (bankBoston.getCuentas().isEmpty()) {
-                    System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
-                    break;
-                } else {
-                    Integer cuentaTarget = 0;
-                    do {
-                        cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a girar: ");
-                        long monto = obtenerMontoEntrada("Ingrese monto a girar: ");
-                        bankBoston.girarMontoCuenta(cuentaTarget, monto);
-                    } while (cuentaTarget <= 0 );
-                }
+                girar(bankBoston);
                 break;
             case "5": // consultar saldo
-                if (bankBoston.getCuentas().isEmpty()) {
-                    System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
-                    break;
-                } else {
-                    Integer cuentaTarget = 0;
-                    do {
-                        cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a consultar saldo: ");
-                        bankBoston.mostrarSaldo(cuentaTarget);
-                    } while (cuentaTarget <= 0 );
-                }
+                consultarSaldo(bankBoston);
                 break;
             case "6": // salir
                 System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON");
                 break;
+        }
+    }
+
+    private static void registrarCliente(Banco bankBoston) {
+        Cliente clienteNuevo = Cliente.crearCliente();
+        bankBoston.agregarCliente(clienteNuevo);
+    }
+
+    private static void verDatosCliente(Banco bankBoston) {
+        if (bankBoston.getClientes().isEmpty()) {
+            System.out.println("No se ha registrado ningún cliente. Registre cliente en opción 1 del menú principal");
+            return;
+        } else {
+            // pedir datos para buscar información de cliente
+            String rutTarget = obtenerRutDeEntrada("Ingrese rut del cliente a buscar (incluya puntos y guión): ").toUpperCase();
+            bankBoston.mostrarDatosCliente(rutTarget);
+        }
+    }
+
+    private static void consultarSaldo(Banco bankBoston) {
+        if (bankBoston.getCuentas().isEmpty()) {
+            System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+            return;
+        } else {
+            Integer cuentaTarget = 0;
+            do {
+                cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a consultar saldo: ");
+                bankBoston.mostrarSaldo(cuentaTarget);
+            } while (cuentaTarget <= 0);
+        }
+    }
+
+    private static void girar(Banco bankBoston) {
+        if (bankBoston.getCuentas().isEmpty()) {
+            System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+            return;
+        } else {
+            Integer cuentaTarget = 0;
+            do {
+                cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a girar: ");
+                long monto = obtenerMontoEntrada("Ingrese monto a girar: ");
+                bankBoston.girarMontoCuenta(cuentaTarget, monto);
+            } while (cuentaTarget <= 0);
+        }
+    }
+
+    private static void depositar(Banco bankBoston) {
+        if (bankBoston.getCuentas().isEmpty()) {
+            System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+            return;
+        } else {
+            Integer cuentaTarget = 0;
+            do {
+                cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a depositar: ");
+                long monto = obtenerMontoEntrada("Ingrese monto a depositar: ");
+                bankBoston.depositarMontoCuenta(cuentaTarget, monto);
+            } while (cuentaTarget <= 0);
         }
     }
 

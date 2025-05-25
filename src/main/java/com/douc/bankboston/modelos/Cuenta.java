@@ -1,7 +1,7 @@
 package com.douc.bankboston.modelos;
 
 public class Cuenta {
-    private int numeroCuenta;
+    private long numeroCuenta;
     private long saldo = 0; // todas las cuentas se inicializan con cero
 
 
@@ -12,7 +12,7 @@ public class Cuenta {
 
     // setters
 
-    public void setNumeroCuenta(int numeroCuenta) {
+    public void setNumeroCuenta(long numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
@@ -22,7 +22,7 @@ public class Cuenta {
 
     // getters
 
-    public int getNumeroCuenta() {
+    public long getNumeroCuenta() {
         return numeroCuenta;
     }
 

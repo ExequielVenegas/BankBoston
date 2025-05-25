@@ -85,7 +85,7 @@ public class Banco {
         return existeCliente;
     }
 
-    public boolean verificarCuentaExiste(Integer numeroCuenta) { // metodo para revisar la cuenta ya existe antes de crearlo
+    public boolean verificarCuentaExiste(long numeroCuenta) { // metodo para revisar la cuenta ya existe antes de crearlo
         boolean existeCuenta = false;
         if (cuentas.containsKey(numeroCuenta)) {
             existeCuenta = true;
