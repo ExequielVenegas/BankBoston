@@ -64,15 +64,18 @@ public class Banco {
 
     public void agregarCliente(Cliente cliente) { // suponiendo un sistema de un cliente = una cuenta
         if (verificarClienteExiste(cliente.getRut())) {
-            System.out.println("Cliente ya existe. No es posible registrarlo nuevamente");
+            System.out.println("    Cliente ya existe. No es posible registrarlo nuevamente ❌");
         } else {
             if (verificarCuentaExiste(cliente.getCuenta().getNumeroCuenta())) {
-                System.out.println("Cuenta ya existe. No es posible registrarla nuevamente");
+                System.out.println("    Cuenta ya existe. No es posible registrarla nuevamente ❌");
             } else {
                 clientes.put(cliente.getRut(), cliente); // agrego al cliente a mi mapa de clientes
                 cuentas.put(cliente.getNumeroCuenta(), cliente.getCuenta()); // agrego la cuenta a mi mape de cuentas
                 relacionCuentaCliente.put(cliente.getNumeroCuenta(), cliente.getRut()); // agrego la relacion de cuenta y cliente
-                System.out.println("El cliente rut: " + cliente.getRut() + " ha sido registrado existosamente");
+                System.out.println("_________________________________________________________________________________________");
+                System.out.println("    El cliente rut: " + cliente.getRut() + " ha sido registrado existosamente ✅");
+                System.out.println("_________________________________________________________________________________________");
+
             }
         }
     }
@@ -105,10 +108,10 @@ public class Banco {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {
                 cuentas.get(numeroCuenta).depositarMonto(monto);
-                System.out.println("¡Depósito realizado de manera exitosa!");
-                System.out.println("Usted tiene un saldo actual de " + cuentas.get(numeroCuenta).getSaldo() + " pesos");
+                System.out.println("¡Depósito realizado de manera exitosa! ✅");
+                System.out.println("Usted tiene un saldo actual de: $ " + cuentas.get(numeroCuenta).getSaldo() + " CLP");
             } else {
-                System.out.println("Monto no valido, no se ha realizado transaccion.");
+                System.out.println("Monto no valido, no se ha realizado transacción. ❌");
             }
         } else {
             System.out.println("No se ha encontrado cuenta con ese número.");
@@ -121,13 +124,13 @@ public class Banco {
                 long saldoCalculado = cuentas.get(numeroCuenta).getSaldo() - monto;
                 if (saldoCalculado >= 0) {
                     cuentas.get(numeroCuenta).girarMonto(monto);
-                    System.out.println("¡Giro realizado de manera exitosa!");
-                    System.out.println("Usted tiene un saldo actual de " + cuentas.get(numeroCuenta).getSaldo() + " pesos");
+                    System.out.println("¡Giro realizado de manera exitosa!✅");
+                    System.out.println("Usted tiene un saldo actual de: $" + cuentas.get(numeroCuenta).getSaldo() + " CLP");
                 } else {
-                    System.out.println("Saldo insuficiente, no se ha realizado transaccion.");
+                    System.out.println("Saldo insuficiente, no se ha realizado transacción. ❌");
                 }
             } else {
-                System.out.println("Monto no valido, no se ha realizado transaccion.");
+                System.out.println("Monto no valido, no se ha realizado transacción.");
             }
         } else {
             System.out.println("No se ha encontrado cuenta con ese número.");
@@ -136,36 +139,10 @@ public class Banco {
 
     public void mostrarSaldo(Long numeroCuenta) {
         if (verificarCuentaExiste(numeroCuenta)) {
-            System.out.println("Saldo actual: " + cuentas.get(numeroCuenta).getSaldo());
+            System.out.println("Saldo actual: $" + cuentas.get(numeroCuenta).getSaldo() + " CLP");
         } else {
             System.out.println("No se ha encontrado cuenta con ese número.");
         }
     }
-
-
-
-    /*
-    public static boolean validarRutCliente(String rutTarget) { // verificar si rut existe asociado a un cliente
-        for (Cliente c : getClientes()) {
-            if (c.getRut().equalsIgnoreCase(rutTarget)) {
-                return true;
-            }
-        }
-        System.out.println("Este rut no está asociado a un cliente de este banco.");
-        return false;
-    }
-     */
-
-    /*
-    public static Cliente buscarCliente(Cliente cliente, String rutTarget){
-        if(validarRutCliente(rutTarget)){
-            cliente.verDatosCliente();
-            return cliente;
-        }else{
-            System.out.println("Cliente no existe");
-            return
-        }
-    }
-     */
 
 }

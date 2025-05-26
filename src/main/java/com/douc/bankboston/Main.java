@@ -3,8 +3,7 @@ package com.douc.bankboston;
 import com.douc.bankboston.modelos.Banco;
 import com.douc.bankboston.modelos.Cliente;
 
-import static com.douc.bankboston.constantes.Constantes.LISTA_OPCIONES;
-import static com.douc.bankboston.constantes.Constantes.OPCION_SALIR;
+import static com.douc.bankboston.constantes.Constantes.*;
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
 
 public class Main {
@@ -15,7 +14,7 @@ public class Main {
 
         do {
             mostrarMenu();
-            opcMenu = obtenerTextoDeScanner("Por favor ingrese el número de la acción que desea realizar: ");
+            opcMenu = obtenerTextoDeScanner("Por favor ingrese el número de la acción que desea realizar:\n ");
             clearConsole();
             if (!LISTA_OPCIONES.contains(opcMenu)) {
                 System.out.println("\n Opción inválida intente nuevamente");
@@ -27,15 +26,15 @@ public class Main {
     }
 
     private static void mostrarMenu() {
-        System.out.println("\n=========== BIENVENIDO/A AL SISTEMA DE GESTIÓN DE CUENTAS DE BANK BOSTON ============= \n");
-        System.out.println("|______________________________ MENÚ PRINCIPAL _________________________|");
-        System.out.println("|1. Registrar cliente                                                   |");
-        System.out.println("|2. Ver datos cliente                                                   |");
-        System.out.println("|3. Depositar                                                           |");
-        System.out.println("|4. Girar                                                               |");
-        System.out.println("|5. Consultar saldo                                                     |");
-        System.out.println("|6. Salir.                                                              |");
-        System.out.println("|-----------------------------------------------------------------------|");
+        System.out.println("=========== 🏦 BIENVENIDO/A AL SISTEMA DE GESTIÓN DE CUENTAS DE BANK BOSTON ============");
+        mostrarEncabezado(MENU_PRINCIPAL);
+        System.out.println("|           1. Registrar cliente                                                        |");
+        System.out.println("|           2. Ver datos cliente                                                        |");
+        System.out.println("|           3. Depositar                                                                |");
+        System.out.println("|           4. Girar                                                                    |");
+        System.out.println("|           5. Consultar saldo                                                          |");
+        System.out.println("|           6. Salir                                                                    |");
+        System.out.println("|_______________________________________________________________________________________|");
     }
 
     private static void aplicarTransacciones(String opcMenu, Banco bankBoston) {
@@ -56,7 +55,7 @@ public class Main {
                 consultarSaldo(bankBoston);
                 break;
             case "6": // salir
-                System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON");
+                System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON 🏦");
                 break;
             case "T": // prueba
                 registrarCliente(bankBoston, true);
@@ -65,24 +64,31 @@ public class Main {
     }
 
     private static void registrarCliente(Banco bankBoston, boolean esPrueba) {
+        mostrarEncabezado(MENU_REGISTRAR_CLIENTE);
         Cliente clienteNuevo = Cliente.crearCliente(esPrueba);
         bankBoston.agregarCliente(clienteNuevo);
+        clearConsole();
     }
 
     private static void verDatosCliente(Banco bankBoston) {
+        mostrarEncabezado(MENU_DATOS_CLIENTE);
         if (bankBoston.getClientes().isEmpty()) {
             System.out.println("No se ha registrado ningún cliente. Registre cliente en opción 1 del menú principal");
+            clearConsole();
             return;
         } else {
             // pedir datos para buscar información de cliente
             String rutTarget = obtenerRutDeEntrada("Ingrese rut del cliente a buscar (incluya puntos y guión): ").toUpperCase();
             bankBoston.mostrarDatosCliente(rutTarget);
         }
+        clearConsole();
     }
 
     private static void consultarSaldo(Banco bankBoston) {
+        mostrarEncabezado(MENU_CONSULTAR_SALDO);
         if (bankBoston.getCuentas().isEmpty()) {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+            clearConsole();
             return;
         } else {
             Long cuentaTarget = 0L;
@@ -91,11 +97,14 @@ public class Main {
                 bankBoston.mostrarSaldo(cuentaTarget);
             } while (cuentaTarget <= 0);
         }
+        clearConsole();
     }
 
     private static void girar(Banco bankBoston) {
+        mostrarEncabezado(MENU_GIRAR);
         if (bankBoston.getCuentas().isEmpty()) {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+            clearConsole();
             return;
         } else {
             Long cuentaTarget = 0L;
@@ -105,11 +114,14 @@ public class Main {
                 bankBoston.girarMontoCuenta(cuentaTarget, monto);
             } while (cuentaTarget <= 0);
         }
+        clearConsole();
     }
 
     private static void depositar(Banco bankBoston) {
+        mostrarEncabezado(MENU_DEPOSITAR);
         if (bankBoston.getCuentas().isEmpty()) {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
+           clearConsole();
             return;
         } else {
             Long cuentaTarget = 0L;
@@ -119,5 +131,12 @@ public class Main {
                 bankBoston.depositarMontoCuenta(cuentaTarget, monto);
             } while (cuentaTarget <= 0);
         }
+        clearConsole();
     }
+        private static void mostrarEncabezado (String tipoMenu){
+        System.out.println("_________________________________________________________________________________________");
+        System.out.println("                                 📚 MENÚ: " + tipoMenu );
+        System.out.println("_________________________________________________________________________________________");
+
+        }
 }
