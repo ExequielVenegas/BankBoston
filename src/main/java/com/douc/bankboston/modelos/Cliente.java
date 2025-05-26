@@ -113,34 +113,31 @@ public class Cliente {
     //metodo fabrica, es un metodo que devuelve un objeto de esta clase
     public static Cliente crearCliente(boolean esPrueba) {
         if (!esPrueba) {
-            System.out.println("---------------- REGISTRO DE CLIENTE-------------------");
             String rutCliente = obtenerRutDeEntrada("Ingrese rut del cliente (con puntos y guión): ");
             String nombreCliente = obtenerTextoDeEntrada("Ingrese nombre del cliente: ");
             String apellidoPaternoCliente = obtenerTextoDeEntrada("Ingrese apellido paterno del cliente: ");
             String apellidoMaternoCliente = obtenerTextoDeEntrada("Ingrese apellido materno del cliente: ");
             String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
             String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
-            String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de telefono del cliente: ");
-            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente: ");
+            String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
+            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente (9 dígitos): ");
             return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
                     rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta);
         } else {
-            return new Cliente("Prueba", "Pruebita", "Test",
-                    "1.111.111-1", "Calle Prueba", "Pruebalandia", "987654321", 12345678L);
+            return new Cliente("Nombre prueba", "Paterno prueba", "materno prueba",
+                    "1.111.111-1", "Calle Prueba", "Comuna prueba", "987654321", 123456789L);
         }
     }
 
     public void mostrarDatos() {
-        System.out.println("---------------- DATOS DE CLIENTE-------------------");
-        System.out.println("Rut              : " + getRut());
-        System.out.println("Nombre           : " + getNombre());
-        System.out.println("Apellido Paterno : " + getApellidoPaterno());
-        System.out.println("Apellido Materno : " + getApellidoMaterno());
-        System.out.println("Domicilo         : " + getDomicilio());
-        System.out.println("Comuna           : " + getComuna());
+        System.out.println("Rut              : " + getRut().toUpperCase());
+        System.out.println("Nombre           : " + getNombre().toUpperCase());
+        System.out.println("Apellido Paterno : " + getApellidoPaterno().toUpperCase());
+        System.out.println("Apellido Materno : " + getApellidoMaterno().toUpperCase());
+        System.out.println("Domicilo         : " + getDomicilio().toUpperCase());
+        System.out.println("Comuna           : " + getComuna().toUpperCase());
         System.out.println("Teléfono         : " + getNumeroTelefono());
         System.out.println("Número de cuenta : " + getNumeroCuenta());
-        System.out.println("Saldo            : " + getCuenta().getSaldo());
-        System.out.println("---------------------------------------------------");
+        System.out.println("Saldo            : $ " + getCuenta().getSaldo()  + " CLP");
     }
 }

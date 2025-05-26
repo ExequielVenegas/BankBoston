@@ -22,10 +22,13 @@ public class GestorEntradaSalida {
             try {
                 numeroCuenta = scanner.nextLong();
                 scanner.nextLine(); // Limpiar el buffer: consume el resto de la línea, incluyendo el '\n'
-                entradaValida = true; // Si llegamos aquí, la entrada es válida
+                int longitud = String.valueOf(Math.abs(numeroCuenta)).length();
+                if (longitud==9) {
+                    entradaValida = true; // Si llegamos aquí, la entrada es válida
+                }
             } catch (InputMismatchException e) {
                 // Captura si el usuario no introduce un entero
-                System.out.println("Entrada inválida. Por favor, introduce un número válido.");
+                System.out.println("Entrada inválida. Por favor, introduzca un número válido.");
                 scanner.nextLine(); // Importante: Limpiar el buffer de la entrada incorrecta para evitar un bucle infinito
             } catch (Exception e) {
                 // Captura cualquier otra excepción inesperada
@@ -48,11 +51,11 @@ public class GestorEntradaSalida {
                 if (monto > 0) {
                     entradaValida = true; // Si llegamos aquí, la entrada es válida
                 } else {
-                    System.out.println("Entrada inválida. Por favor, introduce un monto válido.");
+                    System.out.println("Entrada inválida. Por favor, introduzca un monto válido.");
                 }
             } catch (InputMismatchException e) {
                 // Captura si el usuario no introduce un entero
-                System.out.println("Entrada inválida. Por favor, introduce un monto válido.");
+                System.out.println("Entrada inválida. Por favor, introduzca un monto válido.");
                 scanner.nextLine(); // Importante: Limpiar el buffer de la entrada incorrecta para evitar un bucle infinito
             } catch (Exception e) {
                 // Captura cualquier otra excepción inesperada
@@ -86,9 +89,10 @@ public class GestorEntradaSalida {
         return texto;
     }
 
+
     public static boolean isFieldBlank(String field) {
         if (field.isBlank()) {
-            System.out.println("Campo requerido, ingrese valor.");
+            System.out.println("Campo requerido, por favor ingrese valor.");
             return true;
         }
         return false;
@@ -101,9 +105,11 @@ public class GestorEntradaSalida {
     }
 
     public static void clearConsole() {
-        Integer cantidadLineas = 15;
+        Integer cantidadLineas = 3;
         for (int i = 0; i <= cantidadLineas; i++) {
             System.out.println();
         }
+        System.out.println("_________________________________________________________________________________________");
+
     }
 }
