@@ -51,5 +51,7 @@ public class CuentaAhorro extends Cuenta{
         }
     }
 
-    // depositar monto sigue igual
+    public void depositarMonto (Long monto){
+        setSaldo(getSaldo()+ monto);
+    }
 }

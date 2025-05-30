@@ -120,7 +120,6 @@ public class Banco {
         }
     }
 
-    //todo: sería buena idea implementar girar y depositar como interfaces?
     public void girarMontoCuenta(Long numeroCuenta, long monto) {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {

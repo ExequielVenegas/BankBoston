@@ -13,14 +13,15 @@ public class Constantes {
     public static final String OPCION_CONSULTAR_SALDO = "5";
     public static final String OPCION_SALIR = "6";
     public static final String OPCION_TEST = "T";
+    public static final String OPCION_CUENTA_CORRIENTE = "CORRIENTE";
+    public static final String OPCION_CUENTA_AHORRO = "AHORRO";
+    public static final String OPCION_CUENTA_CREDITO = "CREDITO";
     public static final String MENU_PRINCIPAL= "PRINCIPAL";
     public static final String MENU_REGISTRAR_CLIENTE= "REGISTRAR CLIENTE";
     public static final String MENU_DATOS_CLIENTE= "DATOS CLIENTE";
     public static final String MENU_DEPOSITAR= "DEPOSITAR";
     public static final String MENU_GIRAR= "GIRAR";
     public static final String MENU_CONSULTAR_SALDO= "CONSULTAR SALDO";
-
-
 
 
 
