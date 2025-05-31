@@ -3,7 +3,8 @@ package com.douc.bankboston.modelos;
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
 import static com.douc.bankboston.constantes.Constantes.*;
 
-public class Cliente {
+// Implementamos la nueva interfaz
+public class Cliente implements MostrarInformacion {
 
     //atributos
     private String nombre;
@@ -130,7 +131,7 @@ public class Cliente {
             String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
             String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
             Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente (9 dígitos): ");
-            String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta: (corriente/ahorro/credito)").toUpperCase();
+            String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta (corriente/ahorro/credito): ").toUpperCase();
             return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
                     rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta, tipoCuenta );
         } else {
@@ -139,7 +140,10 @@ public class Cliente {
         }
     }
 
-    public void mostrarDatos() {
+    // Renombrar el método para implementar la interfaz y sea más genérico
+    @Override
+    public void mostrarInformacion() {
+        System.out.println("--- DATOS DEL CLIENTE ---");
         System.out.println("Rut              : " + getRut().toUpperCase());
         System.out.println("Nombre           : " + getNombre().toUpperCase());
         System.out.println("Apellido Paterno : " + getApellidoPaterno().toUpperCase());
@@ -149,10 +153,11 @@ public class Cliente {
         System.out.println("Teléfono         : " + getNumeroTelefono());
         System.out.println("Número de cuenta : " + getNumeroCuenta());
         System.out.println("Tipo de cuenta   : " + getTipoCuenta());
-        System.out.println("Saldo            : $ " + getCuenta().getSaldo()  + " CLP");
+        System.out.println("Saldo            : $ " + getCuenta().getSaldo());
+        System.out.println("-------------------------");
     }
 
-     public Cuenta crearCuentaNueva (String tipoCuenta, Long numeroCuenta){
+    public Cuenta crearCuentaNueva (String tipoCuenta, Long numeroCuenta){
 
         switch (tipoCuenta){
             case OPCION_CUENTA_CORRIENTE:
@@ -164,6 +169,5 @@ public class Cliente {
         }
         return null;
         //todo: manejar este return
-     }
-
+    }
 }

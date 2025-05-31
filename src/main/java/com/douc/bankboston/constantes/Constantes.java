@@ -11,7 +11,8 @@ public class Constantes {
     public static final String OPCION_DEPOSITAR_CUENTA = "3";
     public static final String OPCION_GIRAR_CUENTA = "4";
     public static final String OPCION_CONSULTAR_SALDO = "5";
-    public static final String OPCION_SALIR = "6";
+    public static final String OPCION_VER_DATOS_CUENTA = "6";
+    public static final String OPCION_SALIR = "7";
     public static final String OPCION_TEST = "T";
     public static final String OPCION_CUENTA_CORRIENTE = "CORRIENTE";
     public static final String OPCION_CUENTA_AHORRO = "AHORRO";
@@ -19,6 +20,7 @@ public class Constantes {
     public static final String MENU_PRINCIPAL= "PRINCIPAL";
     public static final String MENU_REGISTRAR_CLIENTE= "REGISTRAR CLIENTE";
     public static final String MENU_DATOS_CLIENTE= "DATOS CLIENTE";
+    public static final String MENU_DATOS_CUENTA= "DATOS CUENTA";
     public static final String MENU_DEPOSITAR= "DEPOSITAR";
     public static final String MENU_GIRAR= "GIRAR";
     public static final String MENU_CONSULTAR_SALDO= "CONSULTAR SALDO";
@@ -27,5 +29,5 @@ public class Constantes {
 
 
     public static final List<String> LISTA_OPCIONES = Arrays.asList(OPCION_REGISTRAR_CLIENTE, OPCION_VER_DATOS_CLIENTE, OPCION_DEPOSITAR_CUENTA,
-            OPCION_GIRAR_CUENTA, OPCION_CONSULTAR_SALDO, OPCION_SALIR, OPCION_TEST);
+            OPCION_GIRAR_CUENTA, OPCION_CONSULTAR_SALDO, OPCION_VER_DATOS_CUENTA, OPCION_SALIR, OPCION_TEST);
 }
