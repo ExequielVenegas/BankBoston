@@ -2,6 +2,7 @@ package com.douc.bankboston;
 
 import com.douc.bankboston.modelos.Banco;
 import com.douc.bankboston.modelos.Cliente;
+import com.douc.bankboston.modelos.MostrarInformacion; // Importamos la interfaz si queremos usarla directamente en Main
 
 import static com.douc.bankboston.constantes.Constantes.*;
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
@@ -33,7 +34,8 @@ public class Main {
         System.out.println("|           3. Depositar                                                                |");
         System.out.println("|           4. Girar                                                                    |");
         System.out.println("|           5. Consultar saldo                                                          |");
-        System.out.println("|           6. Salir                                                                    |");
+        System.out.println("|           6. Ver datos cuenta                                                         |");
+        System.out.println("|           7. Salir                                                                    |");
         System.out.println("|_______________________________________________________________________________________|");
     }
 
@@ -54,7 +56,10 @@ public class Main {
             case "5": // consultar saldo
                 consultarSaldo(bankBoston);
                 break;
-            case "6": // salir
+            case "6": // consultar cuenta
+                verDatosCuenta(bankBoston);
+                break;
+            case "7": // salir
                 System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON 🏦");
                 break;
             case "T": // prueba
@@ -77,9 +82,25 @@ public class Main {
             clearConsole();
             return;
         } else {
-            // pedir datos para buscar información de cliente
             String rutTarget = obtenerRutDeEntrada("Ingrese rut del cliente a buscar (incluya puntos y guión): ").toUpperCase();
             bankBoston.mostrarDatosCliente(rutTarget);
+        }
+        clearConsole();
+    }
+
+    private static void verDatosCuenta(Banco bankBoston) {
+        mostrarEncabezado(MENU_DATOS_CUENTA); // Usamos la nueva constante para el encabezado
+        if (bankBoston.getCuentas().isEmpty()) {
+            System.out.println("No se ha registrado ninguna cuenta. Registre cliente en opción 1 del menú principal");
+            clearConsole();
+            return;
+        } else {
+            Long cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese el número de cuenta para ver los detalles: ");
+            if (bankBoston.verificarCuentaExiste(cuentaTarget)) {
+                bankBoston.getCuentas().get(cuentaTarget).mostrarDetalleCuenta(); // Llama al método polimórfico
+            } else {
+                System.out.println("No se ha encontrado cuenta con ese número.");
+            }
         }
         clearConsole();
     }
@@ -121,7 +142,7 @@ public class Main {
         mostrarEncabezado(MENU_DEPOSITAR);
         if (bankBoston.getCuentas().isEmpty()) {
             System.out.println("No se ha registrado ningúna cuenta. Registre cliente en opción 1 del menú principal");
-           clearConsole();
+            clearConsole();
             return;
         } else {
             Long cuentaTarget = 0L;
@@ -133,9 +154,9 @@ public class Main {
         }
         clearConsole();
     }
-        private static void mostrarEncabezado (String tipoMenu){
+    private static void mostrarEncabezado (String tipoMenu){
         System.out.println("_________________________________________________________________________________________");
         System.out.println("                                 📚 MENÚ: " + tipoMenu );
         System.out.println("_________________________________________________________________________________________");
-        }
+    }
 }

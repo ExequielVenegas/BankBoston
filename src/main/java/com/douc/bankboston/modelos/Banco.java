@@ -3,8 +3,6 @@ package com.douc.bankboston.modelos;
 import java.util.HashMap;
 
 import static com.douc.bankboston.constantes.Constantes.NOMBRE_BANCO;
-import static com.douc.bankboston.modelos.CuentaAhorro.*;
-
 
 public class Banco {
 
@@ -82,7 +80,7 @@ public class Banco {
         }
     }
 
-    public boolean verificarClienteExiste(String rutCliente) { // metodo para revisar si el cliente ya existe antes de crearlo
+    public boolean verificarClienteExiste(String rutCliente) {
         boolean existeCliente = false;
         if (clientes.containsKey(rutCliente)) {
             existeCliente = true;
@@ -90,7 +88,7 @@ public class Banco {
         return existeCliente;
     }
 
-    public boolean verificarCuentaExiste(long numeroCuenta) { // metodo para revisar la cuenta ya existe antes de crearlo
+    public boolean verificarCuentaExiste(long numeroCuenta) {
         boolean existeCuenta = false;
         if (cuentas.containsKey(numeroCuenta)) {
             existeCuenta = true;
@@ -100,7 +98,10 @@ public class Banco {
 
     public void mostrarDatosCliente(String rutCliente) {
         if (verificarClienteExiste(rutCliente)) {
-            clientes.get(rutCliente).mostrarDatos();
+            // Usamos el método de la interfaz que Cliente implementa
+            clientes.get(rutCliente).mostrarInformacion();
+            // Y llamamos al nuevo método abstracto de Cuenta para mostrar los detalles específicos
+            clientes.get(rutCliente).getCuenta().mostrarDetalleCuenta();
         } else {
             System.out.println("No se ha encontrado cliente con ese rut.");
         }
@@ -110,8 +111,6 @@ public class Banco {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {
                 cuentas.get(numeroCuenta).depositarMonto(monto);
-                System.out.println("¡Depósito realizado de manera exitosa! ✅");
-                System.out.println("Usted tiene un saldo actual de: $ " + cuentas.get(numeroCuenta).getSaldo() + " CLP");
             } else {
                 System.out.println("Monto no valido, no se ha realizado transacción. ❌");
             }
@@ -123,16 +122,10 @@ public class Banco {
     public void girarMontoCuenta(Long numeroCuenta, long monto) {
         if (verificarCuentaExiste(numeroCuenta)) {
             if (monto > 0) {
-                long saldoCalculado = cuentas.get(numeroCuenta).getSaldo() - monto;
-                if (saldoCalculado >= 0) {
-                    cuentas.get(numeroCuenta).girarMonto(monto);
-                    System.out.println("¡Giro realizado de manera exitosa!✅");
-                    System.out.println("Usted tiene un saldo actual de: $" + cuentas.get(numeroCuenta).getSaldo() + " CLP");
-                } else {
-                    System.out.println("Saldo insuficiente, no se ha realizado transacción. ❌");
-                }
+                // La lógica de saldo insuficiente ahora se maneja dentro de cada girarMonto de la subclase
+                cuentas.get(numeroCuenta).girarMonto(monto);
             } else {
-                System.out.println("Monto no valido, no se ha realizado transacción.");
+                System.out.println("Monto no valido, no se ha realizado transacción. ❌");
             }
         } else {
             System.out.println("No se ha encontrado cuenta con ese número.");
@@ -141,7 +134,7 @@ public class Banco {
 
     public void mostrarSaldo(Long numeroCuenta) {
         if (verificarCuentaExiste(numeroCuenta)) {
-            System.out.println("Saldo actual: $" + cuentas.get(numeroCuenta).getSaldo() + " CLP");
+            System.out.println("Saldo actual: $" + cuentas.get(numeroCuenta).getSaldo());
         } else {
             System.out.println("No se ha encontrado cuenta con ese número.");
         }
@@ -160,7 +153,5 @@ public class Banco {
             System.out.println("Saldo actual: $" + getSaldo());
         }
     }
-
      */
-
 }
