@@ -3,6 +3,8 @@ package com.douc.bankboston.modelos;
 import java.util.HashMap;
 
 import static com.douc.bankboston.constantes.Constantes.NOMBRE_BANCO;
+import static com.douc.bankboston.modelos.CuentaAhorro.*;
+
 
 public class Banco {
 
@@ -144,5 +146,21 @@ public class Banco {
             System.out.println("No se ha encontrado cuenta con ese número.");
         }
     }
+
+    //todo: pense que podria ser util a futuro
+    /*
+    public void aplicarInteresAnual () {
+        if (ContadorGiros <= limiteGirosAnuales) { // conserva el interés
+            interesAnual = (getSaldo() * tasaInteresAnual);
+            setSaldo((long) (getSaldo() + interesAnual));
+            System.out.println("Su cuenta de ahorro ha incorporado un interés anual de: " + tasaInteresAnual);
+            System.out.println("Saldo actual: $" + getSaldo());
+        } else {
+            System.out.println("Ha realizado mas de 7 giros en el periodo. Su cuenta de ahorro no ha registrado intereses.");
+            System.out.println("Saldo actual: $" + getSaldo());
+        }
+    }
+
+     */
 
 }

@@ -1,6 +1,7 @@
 package com.douc.bankboston.modelos;
 
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
+import static com.douc.bankboston.constantes.Constantes.*;
 
 public class Cliente {
 
@@ -13,13 +14,14 @@ public class Cliente {
     private String comuna;
     private String numeroTelefono;
     private Long numeroCuenta;
+    private String tipoCuenta;
     private Cuenta cuenta;
 
 
     // constructor
     private Cliente(String nombre, String apellidoPaterno, String apellidoMaterno,
                     String rut, String domicilio, String comuna,
-                    String numeroTelefono, Long numeroCuenta) {
+                    String numeroTelefono, Long numeroCuenta, String tipoCuenta) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -28,7 +30,8 @@ public class Cliente {
         this.comuna = comuna;
         this.numeroTelefono = numeroTelefono;
         this.numeroCuenta = numeroCuenta;
-        this.cuenta = new Cuenta(this.numeroCuenta);
+        this.tipoCuenta=tipoCuenta;
+        this.cuenta = crearCuentaNueva(tipoCuenta,numeroCuenta);
     }
 
     // setters
@@ -69,6 +72,9 @@ public class Cliente {
         this.cuenta = cuenta;
     }
 
+    public void setTipoCuenta(String tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
+    }
     // getters
 
 
@@ -108,7 +114,10 @@ public class Cliente {
         return cuenta;
     }
 
-    // métodos custom
+    public String getTipoCuenta() {
+        return tipoCuenta;
+    }
+// métodos custom
 
     //metodo fabrica, es un metodo que devuelve un objeto de esta clase
     public static Cliente crearCliente(boolean esPrueba) {
@@ -121,11 +130,12 @@ public class Cliente {
             String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
             String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
             Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente (9 dígitos): ");
+            String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta: (corriente/ahorro/credito)").toUpperCase();
             return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
-                    rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta);
+                    rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta, tipoCuenta );
         } else {
             return new Cliente("Nombre prueba", "Paterno prueba", "materno prueba",
-                    "1.111.111-1", "Calle Prueba", "Comuna prueba", "987654321", 123456789L);
+                    "1.111.111-1", "Calle Prueba", "Comuna prueba", "987654321", 123456789L, "CORRIENTE");
         }
     }
 
@@ -138,6 +148,22 @@ public class Cliente {
         System.out.println("Comuna           : " + getComuna().toUpperCase());
         System.out.println("Teléfono         : " + getNumeroTelefono());
         System.out.println("Número de cuenta : " + getNumeroCuenta());
+        System.out.println("Tipo de cuenta   : " + getTipoCuenta());
         System.out.println("Saldo            : $ " + getCuenta().getSaldo()  + " CLP");
     }
+
+     public Cuenta crearCuentaNueva (String tipoCuenta, Long numeroCuenta){
+
+        switch (tipoCuenta){
+            case OPCION_CUENTA_CORRIENTE:
+                return new CuentaCorriente(numeroCuenta);
+            case OPCION_CUENTA_AHORRO:
+                return new CuentaAhorro(numeroCuenta);
+            case OPCION_CUENTA_CREDITO:
+                return new CuentaCredito(numeroCuenta);
+        }
+        return null;
+        //todo: manejar este return
+     }
+
 }

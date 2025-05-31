@@ -1,8 +1,8 @@
 package com.douc.bankboston.modelos;
 
-public class Cuenta {
-    private long numeroCuenta;
-    private long saldo = 0; // todas las cuentas se inicializan con cero
+public abstract class Cuenta {
+    private Long numeroCuenta;
+    private Long saldo = 0L; // todas las cuentas se inicializan con cero
 
 
     // constructor
@@ -12,30 +12,27 @@ public class Cuenta {
 
     // setters
 
-    public void setNumeroCuenta(long numeroCuenta) {
+    public void setNumeroCuenta(Long numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public void setSaldo(long saldo) {
+    public void setSaldo(Long saldo) {
         this.saldo = saldo;
     }
 
     // getters
 
-    public long getNumeroCuenta() {
+    public Long getNumeroCuenta() {
         return numeroCuenta;
     }
 
-    public long getSaldo() {
+    public Long getSaldo() {
         return saldo;
     }
 
     // metodos customs
-    public void depositarMonto(long monto) {
-        setSaldo(getSaldo() + monto);
-    }
+    public abstract void depositarMonto(Long monto);
 
-    public void girarMonto(long monto) {
-        setSaldo(getSaldo() - monto);
-    }
+    public abstract void girarMonto (Long monto);
+
 }
