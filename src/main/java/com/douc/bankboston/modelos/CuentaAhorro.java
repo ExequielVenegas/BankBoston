@@ -10,7 +10,7 @@ public class CuentaAhorro extends Cuenta{
         super(numeroCuenta); // Llama al constructor de la clase padre
         this.limiteGirosAnuales=7; // solo tiene 7 giros anuales disponibles antes de perder intereses
         this.contadorGiros=0; // se inicializa en 0
-        this.tasaInteresAnual=0.6;
+        this.tasaInteresAnual=0.006;
     }
 
     // Constructor con saldo inicial (Ejemplo de sobrecarga en subclase, aunque ya hay en la superclase) sin usar.

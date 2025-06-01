@@ -130,7 +130,7 @@ public class Cliente implements MostrarInformacion {
             String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
             String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
             String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
-            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta corriente (9 dígitos): ");
+            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a crear (9 dígitos): ");
             String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta (corriente/ahorro/credito): ").toUpperCase();
             return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
                     rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta, tipoCuenta );
