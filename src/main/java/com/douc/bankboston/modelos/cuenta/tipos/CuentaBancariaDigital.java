@@ -1,20 +1,24 @@
-package com.douc.bankboston.modelos;
+package com.douc.bankboston.modelos.cuenta.tipos;
 
-public class CuentaCorriente extends Cuenta {
+import com.douc.bankboston.modelos.cuenta.base.CuentaBancaria;
+
+public class CuentaBancariaDigital extends CuentaBancaria {
 
     Long limiteSobregiro;
     Long sobregiroActual; // cantidad de dinero en la que estoy sobregirado
+    private double tasaInteresSobregiroDigital = 0.07; // Tasa de interés/cargo por sobregiro (7%) para digital
+    private Long cargoPorInteresSobregiroDigital = 0L; // Cargo generado por el sobregiro
 
-    public CuentaCorriente(Long numeroCuenta) {
+    public CuentaBancariaDigital(Long numeroCuenta) {
         super(numeroCuenta); // Llama al constructor de la clase padre
-        this.limiteSobregiro = 50000L; // se crea con un limite de 50000 de sobregiro
+        this.limiteSobregiro = 1000L; // se crea con un limite de 50000 de sobregiro
         this.sobregiroActual = 0L; // se crea con 0 de sobregiro
     }
 
     // Constructor con saldo inicial (Ejemplo de sobrecarga en subclase)
-    public CuentaCorriente(Long numeroCuenta, Long saldoInicial) {
+    public CuentaBancariaDigital(Long numeroCuenta, Long saldoInicial) {
         super(numeroCuenta, saldoInicial);
-        this.limiteSobregiro = 50000L;
+        this.limiteSobregiro = 1000L;
         this.sobregiroActual = 0L;
     }
 
@@ -88,14 +92,28 @@ public class CuentaCorriente extends Cuenta {
         }
     }
 
-    // Implementación del nuevo método abstracto de cuenta
+    // Implementación del nuevo metodo abstracto de cuenta
     @Override
     public void mostrarDetalleCuenta() {
-        System.out.println("--- DETALLE CUENTA CORRIENTE ---");
+        System.out.println("--- DETALLE CUENTA DIGITAL ---");
         System.out.println("Número de Cuenta    : " + getNumeroCuenta());
         System.out.println("Saldo Actual        : $" + getSaldo());
         System.out.println("Límite de Sobregiro : $" + getLimiteSobregiro());
         System.out.println("Sobregiro Actual    : $" + getSobregiroActual());
         System.out.println("--------------------------------");
+    }
+
+    @Override
+    public void calcularInteres() {
+        if (sobregiroActual > 0) {
+            // Si hay sobregiro, se calcula un cargo por interés, posiblemente con una tasa diferente a la corriente
+            this.cargoPorInteresSobregiroDigital = (long) (sobregiroActual * tasaInteresSobregiroDigital);
+            System.out.println("Se ha generado un cargo por interés de sobregiro de " + cargoPorInteresSobregiroDigital + " para su cuenta digital.");
+            // Se puede revisar si este cargo se añade directamente al sobregiro actual.
+            // setSobregiroActual(getSobregiroActual() + cargoPorInteresSobregiroDigital);
+        } else {
+            this.cargoPorInteresSobregiroDigital = 0L;
+            System.out.println("No hay sobregiro activo en la cuenta digital, no se genera cargo por interés.");
+        }
     }
 }

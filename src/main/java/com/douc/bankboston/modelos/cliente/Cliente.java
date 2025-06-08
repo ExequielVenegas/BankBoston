@@ -1,10 +1,16 @@
-package com.douc.bankboston.modelos;
+package com.douc.bankboston.modelos.cliente;
+
+import com.douc.bankboston.modelos.cuenta.base.CuentaBancaria;
+import com.douc.bankboston.modelos.cuenta.tipos.CuentaBancariaAhorro;
+import com.douc.bankboston.modelos.cuenta.tipos.CuentaBancariaCorriente;
+import com.douc.bankboston.modelos.cuenta.tipos.CuentaBancariaCredito;
+import com.douc.bankboston.modelos.cuenta.tipos.CuentaBancariaDigital;
 
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
 import static com.douc.bankboston.constantes.Constantes.*;
 
 // Implementamos la nueva interfaz
-public class Cliente implements MostrarInformacion {
+public class Cliente implements mostrarInformacionCliente {
 
     //atributos
     private String nombre;
@@ -16,7 +22,7 @@ public class Cliente implements MostrarInformacion {
     private String numeroTelefono;
     private Long numeroCuenta;
     private String tipoCuenta;
-    private Cuenta cuenta;
+    private CuentaBancaria cuentaBancaria;
 
 
     // constructor
@@ -32,7 +38,7 @@ public class Cliente implements MostrarInformacion {
         this.numeroTelefono = numeroTelefono;
         this.numeroCuenta = numeroCuenta;
         this.tipoCuenta=tipoCuenta;
-        this.cuenta = crearCuentaNueva(tipoCuenta,numeroCuenta);
+        this.cuentaBancaria = crearCuentaNueva(tipoCuenta,numeroCuenta);
     }
 
     // setters
@@ -69,8 +75,8 @@ public class Cliente implements MostrarInformacion {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public void setCuenta(Cuenta cuenta) {
-        this.cuenta = cuenta;
+    public void setCuenta(CuentaBancaria cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
     }
 
     public void setTipoCuenta(String tipoCuenta) {
@@ -111,8 +117,8 @@ public class Cliente implements MostrarInformacion {
         return numeroCuenta;
     }
 
-    public Cuenta getCuenta() {
-        return cuenta;
+    public CuentaBancaria getCuenta() {
+        return cuentaBancaria;
     }
 
     public String getTipoCuenta() {
@@ -121,26 +127,29 @@ public class Cliente implements MostrarInformacion {
 // métodos custom
 
     //metodo fabrica, es un metodo que devuelve un objeto de esta clase
-    public static Cliente crearCliente(boolean esPrueba) {
-        if (!esPrueba) {
-            String rutCliente = obtenerRutDeEntrada("Ingrese rut del cliente (con puntos y guión): ");
-            String nombreCliente = obtenerTextoDeEntrada("Ingrese nombre del cliente: ");
-            String apellidoPaternoCliente = obtenerTextoDeEntrada("Ingrese apellido paterno del cliente: ");
-            String apellidoMaternoCliente = obtenerTextoDeEntrada("Ingrese apellido materno del cliente: ");
-            String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
-            String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
-            String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
-            Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a crear (9 dígitos): ");
-            String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta (corriente/ahorro/credito): ").toUpperCase();
-            return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
-                    rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta, tipoCuenta );
-        } else {
+    public static Cliente crearCliente() {
+        String rutCliente = obtenerRutDeEntrada("Ingrese rut del cliente (con puntos y guión): ");
+        String nombreCliente = obtenerTextoDeEntrada("Ingrese nombre del cliente: ");
+        String apellidoPaternoCliente = obtenerTextoDeEntrada("Ingrese apellido paterno del cliente: ");
+        String apellidoMaternoCliente = obtenerTextoDeEntrada("Ingrese apellido materno del cliente: ");
+        String domicilioCliente = obtenerTextoDeEntrada("Ingrese domicilio del cliente: ");
+        String comunaCliente = obtenerTextoDeEntrada("Ingrese comuna del cliente: ");
+        String numeroTelefoCliente = obtenerTextoDeEntrada("Ingrese número de teléfono del cliente: ");
+        Long numeroCuenta = obtenerNumeroCuentaEntrada("Ingrese número de cuenta a crear (9 dígitos): ");
+        String tipoCuenta = obtenerTextoDeEntrada("Ingrese tipo de cuenta (corriente/ahorro/credito/digital): ").toUpperCase();
+
+        return new Cliente(nombreCliente, apellidoPaternoCliente, apellidoMaternoCliente,
+                rutCliente, domicilioCliente, comunaCliente, numeroTelefoCliente, numeroCuenta, tipoCuenta );
+    }
+
+    public static Cliente crearClientePrueba() {
+        {
             return new Cliente("Nombre prueba", "Paterno prueba", "materno prueba",
                     "1.111.111-1", "Calle Prueba", "Comuna prueba", "987654321", 123456789L, "CORRIENTE");
         }
     }
 
-    // Renombrar el método para implementar la interfaz y sea más genérico
+    // Renombrar el metodo para implementar la interfaz y sea más genérico
     @Override
     public void mostrarInformacion() {
         System.out.println("--- DATOS DEL CLIENTE ---");
@@ -157,15 +166,18 @@ public class Cliente implements MostrarInformacion {
         System.out.println("-------------------------");
     }
 
-    public Cuenta crearCuentaNueva (String tipoCuenta, Long numeroCuenta){
+    public CuentaBancaria crearCuentaNueva (String tipoCuenta, Long numeroCuenta){
 
         switch (tipoCuenta){
             case OPCION_CUENTA_CORRIENTE:
-                return new CuentaCorriente(numeroCuenta);
+                return new CuentaBancariaCorriente(numeroCuenta);
             case OPCION_CUENTA_AHORRO:
-                return new CuentaAhorro(numeroCuenta);
+                return new CuentaBancariaAhorro(numeroCuenta);
             case OPCION_CUENTA_CREDITO:
-                return new CuentaCredito(numeroCuenta);
+                return new CuentaBancariaCredito(numeroCuenta);
+            case OPCION_CUENTA_DIGITAL:
+                return new CuentaBancariaDigital(numeroCuenta);
+
         }
         return null;
         //todo: manejar este return

@@ -1,4 +1,7 @@
-package com.douc.bankboston.modelos;
+package com.douc.bankboston.modelos.banco;
+
+import com.douc.bankboston.modelos.cliente.Cliente;
+import com.douc.bankboston.modelos.cuenta.base.CuentaBancaria;
 
 import java.util.HashMap;
 
@@ -8,7 +11,7 @@ public class Banco {
 
     private String nombreBanco;
     private HashMap<String, Cliente> clientes;
-    private HashMap<Long, Cuenta> cuentas;
+    private HashMap<Long, CuentaBancaria> cuentas;
     private HashMap<Long, String> relacionCuentaCliente;
 
     // constructor
@@ -43,11 +46,11 @@ public class Banco {
         this.clientes = clientes;
     }
 
-    public HashMap<Long, Cuenta> getCuentas() {
+    public HashMap<Long, CuentaBancaria> getCuentas() {
         return cuentas;
     }
 
-    private void setCuentas(HashMap<Long, Cuenta> cuentas) {
+    private void setCuentas(HashMap<Long, CuentaBancaria> cuentas) {
         this.cuentas = cuentas;
     }
 
@@ -98,9 +101,9 @@ public class Banco {
 
     public void mostrarDatosCliente(String rutCliente) {
         if (verificarClienteExiste(rutCliente)) {
-            // Usamos el método de la interfaz que Cliente implementa
+            // Usamos el metodo de la interfaz que Cliente implementa
             clientes.get(rutCliente).mostrarInformacion();
-            // Y llamamos al nuevo método abstracto de Cuenta para mostrar los detalles específicos
+            // Y llamamos al nuevo metodo abstracto de Cuenta para mostrar los detalles específicos
             clientes.get(rutCliente).getCuenta().mostrarDetalleCuenta();
         } else {
             System.out.println("No se ha encontrado cliente con ese rut.");
