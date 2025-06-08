@@ -1,10 +1,14 @@
-package com.douc.bankboston.modelos;
+package com.douc.bankboston.modelos.cuenta.tipos;
 
-public class CuentaCredito extends Cuenta{
+import com.douc.bankboston.modelos.cuenta.base.CuentaBancaria;
+
+public class CuentaBancariaCredito extends CuentaBancaria {
     private Long lineaCreditoTotal;
     private Long lineaCreditoUtilizada;
+    private double tasaInteresCredito = 0.02; // Tasa de interés mensual (2%)
+    private Long interesesGenerados = 0L; // Atributo para almacenar los intereses
 
-    public CuentaCredito(Long numeroCuenta) {
+    public CuentaBancariaCredito(Long numeroCuenta) {
         super(numeroCuenta, 0L); // Las cuentas de crédito no tienen un "saldo" tradicional, su "saldo" es la deuda. El saldo de la superclase puede representar 0 o deuda actual.
         this.lineaCreditoTotal = 200000L;
         this.lineaCreditoUtilizada = 0L;
@@ -14,7 +18,7 @@ public class CuentaCredito extends Cuenta{
     }
 
     // Constructor con línea de crédito inicial específica (Ejemplo de sobrecarga en subclase)
-    public CuentaCredito(Long numeroCuenta, Long lineaInicial) {
+    public CuentaBancariaCredito(Long numeroCuenta, Long lineaInicial) {
         super(numeroCuenta, 0L); // Asumimos 0 saldo inicial, la lógica es por línea de crédito
         this.lineaCreditoTotal = lineaInicial;
         this.lineaCreditoUtilizada = 0L;
@@ -85,7 +89,7 @@ public class CuentaCredito extends Cuenta{
         System.out.println("Deuda restante: $" + lineaCreditoUtilizada);
     }
 
-    // Implementación del nuevo método abstracto
+    // Implementación del nuevo metodo abstracto
     @Override
     public void mostrarDetalleCuenta() {
         System.out.println("--- DETALLE CUENTA DE CRÉDITO ---");
@@ -94,5 +98,20 @@ public class CuentaCredito extends Cuenta{
         System.out.println("Línea de Crédito Utilizada: $" + getLineaCreditoUtilizada());
         System.out.println("Línea de Crédito Disponible: $" + getLineaCreditoDisponible());
         System.out.println("---------------------------------");
+    }
+
+    @Override
+    public void calcularInteres() {
+        // El interés se calcula sobre la línea de crédito utilizada
+        if (lineaCreditoUtilizada > 0) {
+            this.interesesGenerados = (long) (lineaCreditoUtilizada * tasaInteresCredito);
+            System.out.println("Se han generado intereses de " + interesesGenerados + " sobre la línea de crédito utilizada.");
+            // Se puede añadir estos intereses a la línea de crédito utilizada,
+            // lo que aumentaría la deuda si no se pagan.
+            // setLineaCreditoUtilizada(getLineaCreditoUtilizada() + interesesGenerados);
+        } else {
+            this.interesesGenerados = 0L;
+            System.out.println("No hay deuda activa en la línea de crédito, no se generan intereses.");
+        }
     }
 }

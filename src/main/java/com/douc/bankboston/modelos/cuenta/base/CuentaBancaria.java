@@ -1,17 +1,17 @@
-package com.douc.bankboston.modelos;
+package com.douc.bankboston.modelos.cuenta.base;
 
-public abstract class Cuenta {
+public abstract class CuentaBancaria {
     private Long numeroCuenta;
     private Long saldo; // Se puede inicializar en 0L o no, dependiendo de la lógica que quieras forzar en los constructores.
 
     // Constructor 1: Inicializa numeroCuenta y saldo (sobrecarga de métodos)
-    public Cuenta(Long numeroCuenta, Long saldoInicial) {
+    public CuentaBancaria(Long numeroCuenta, Long saldoInicial) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldoInicial;
     }
 
     // Constructor 2: Inicializa solo numeroCuenta, saldo por defecto en 0 (sobrecarga de métodos)
-    public Cuenta(Long numeroCuenta) {
+    public CuentaBancaria(Long numeroCuenta) {
         this(numeroCuenta, 0L); // Llama al primer constructor, inicializando saldo en 0
     }
 
@@ -40,7 +40,9 @@ public abstract class Cuenta {
 
     public abstract void girarMonto(Long monto);
 
-    // Nuevo método abstracto requerido (sobreescritura)
-    public abstract void mostrarDetalleCuenta(); // Este método será implementado de forma específica por cada tipo de cuenta
+    // Nuevo metodo abstracto requerido (sobreescritura)
+    public abstract void mostrarDetalleCuenta(); // Este metodo será implementado de forma específica por cada tipo de cuenta
+
+    public abstract void calcularInteres(); // Declaración correcta de un método abstracto
 
 }

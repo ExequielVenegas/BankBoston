@@ -1,8 +1,7 @@
 package com.douc.bankboston;
 
-import com.douc.bankboston.modelos.Banco;
-import com.douc.bankboston.modelos.Cliente;
-import com.douc.bankboston.modelos.MostrarInformacion; // Importamos la interfaz si queremos usarla directamente en Main
+import com.douc.bankboston.modelos.banco.Banco;
+import com.douc.bankboston.modelos.cliente.Cliente;
 
 import static com.douc.bankboston.constantes.Constantes.*;
 import static com.douc.bankboston.utilidades.GestorEntradaSalida.*;
@@ -42,7 +41,7 @@ public class Main {
     private static void aplicarTransacciones(String opcMenu, Banco bankBoston) {
         switch (opcMenu) {
             case "1": // registrar cliente_____________________________________________________________________________
-                registrarCliente(bankBoston, false);
+                registrarCliente(bankBoston);
                 break;
             case "2":
                 verDatosCliente(bankBoston);
@@ -63,14 +62,26 @@ public class Main {
                 System.out.println("Saliendo del programa. Gracias por usar el sistema de gestión de BANK BOSTON 🏦");
                 break;
             case "T": // prueba
-                registrarCliente(bankBoston, true);
+                registrarClientePrueba(bankBoston);
                 break;
         }
     }
 
-    private static void registrarCliente(Banco bankBoston, boolean esPrueba) {
+    private static void registrarCliente(Banco bankBoston) {
         mostrarEncabezado(MENU_REGISTRAR_CLIENTE);
-        Cliente clienteNuevo = Cliente.crearCliente(esPrueba);
+        Cliente clienteNuevo = Cliente.crearCliente();
+        if (clienteNuevo.getCuenta() != null) {
+            bankBoston.agregarCliente(clienteNuevo);
+        } else {
+            System.out.println("El cliente no se ha podido registrar. Intente nuevamente.");
+        }
+
+        clearConsole();
+    }
+
+    private static void registrarClientePrueba(Banco bankBoston) {
+        mostrarEncabezado(MENU_REGISTRAR_CLIENTE);
+        Cliente clienteNuevo = Cliente.crearClientePrueba();
         bankBoston.agregarCliente(clienteNuevo);
         clearConsole();
     }
@@ -97,7 +108,7 @@ public class Main {
         } else {
             Long cuentaTarget = obtenerNumeroCuentaEntrada("Ingrese el número de cuenta para ver los detalles: ");
             if (bankBoston.verificarCuentaExiste(cuentaTarget)) {
-                bankBoston.getCuentas().get(cuentaTarget).mostrarDetalleCuenta(); // Llama al método polimórfico
+                bankBoston.getCuentas().get(cuentaTarget).mostrarDetalleCuenta();
             } else {
                 System.out.println("No se ha encontrado cuenta con ese número.");
             }

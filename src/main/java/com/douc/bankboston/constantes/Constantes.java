@@ -17,6 +17,7 @@ public class Constantes {
     public static final String OPCION_CUENTA_CORRIENTE = "CORRIENTE";
     public static final String OPCION_CUENTA_AHORRO = "AHORRO";
     public static final String OPCION_CUENTA_CREDITO = "CREDITO";
+    public static final String OPCION_CUENTA_DIGITAL = "DIGITAL";
     public static final String MENU_PRINCIPAL= "PRINCIPAL";
     public static final String MENU_REGISTRAR_CLIENTE= "REGISTRAR CLIENTE";
     public static final String MENU_DATOS_CLIENTE= "DATOS CLIENTE";
